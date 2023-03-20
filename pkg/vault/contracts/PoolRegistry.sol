@@ -122,7 +122,8 @@ abstract contract PoolRegistry is ReentrancyGuard, VaultAuthorization {
 
         serialized |= bytes32(uint256(nonce));
         serialized |= bytes32(uint256(specialization)) << (10 * 8);
-        serialized |= bytes32(uint256(pool)) << (12 * 8);
+        /// EDIT BY VILLCASO: convert address to bytes20 instead of unit256 for solidity 0.8
+        serialized |= bytes32(bytes20(pool)) << (12 * 8);
 
         return serialized;
     }
@@ -135,7 +136,8 @@ abstract contract PoolRegistry is ReentrancyGuard, VaultAuthorization {
     function _getPoolAddress(bytes32 poolId) internal pure returns (address) {
         // 12 byte logical shift left to remove the nonce and specialization setting. We don't need to mask,
         // since the logical shift already sets the upper bits to zero.
-        return address(uint256(poolId) >> (12 * 8));
+        /// EDIT BY VILLCASO: convert address to bytes20 instead of unit256 for solidity 0.8
+        return address(bytes20(poolId) >> (12 * 8));
     }
 
     /**

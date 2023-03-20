@@ -52,7 +52,8 @@ contract ProtocolFeesCollector is IProtocolFeesCollector, Authentication, Reentr
     constructor(IVault _vault)
         // The ProtocolFeesCollector is a singleton, so it simply uses its own address to disambiguate action
         // identifiers.
-        Authentication(bytes32(uint256(address(this))))
+        /// EDIT BY VILLCASO: convert address to bytes20 instead of unit256 for solidity 0.8
+        Authentication(bytes32(bytes20(address(this))))
     {
         vault = _vault;
     }
