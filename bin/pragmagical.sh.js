@@ -7,18 +7,22 @@ const path = require('path');
 // skips dotfiles is built-in to function
 const skipDirs = [ 'node_modules', 'dist', 'artifacts', 'cache', 'forge-artifacts', 'forge-cache', 'forge-std', 'deployments', 'governance-scripts' ];
 
+const OLD_PRAGMA_REGEX=/pragma solidity \^0.7.0;/g;
+const NEW_PRAGMA="pragma solidity 0.8.19;";
+
+
 try {
   const result = getAllFiles(".", "*.sol")
-  // console.log(result);
+
   for(let i=0; i<result.length; i++) {
-    const f = fs.readFileSync(result[i], 'utf-8');
-    // const pkg = JSON.parse(f);
-    // const deppkg = search(pkg, 'dependencies', result, result[i]);
-    // const devpkg = search(deppkg, 'devDependencies', result, result[i]);
+    const f = fs.readFileSync(result[i], { options: 'utf-8' }).toString();
+    if (f.match(OLD_PRAGMA_REGEX) !== null) {
+      const fixedpragma = f.replace(OLD_PRAGMA_REGEX, NEW_PRAGMA);
+      fs.writeFileSync(result[i], fixedpragma);
       console.log('updated', result[i]);
-    //  fs.renameSync(result[i], `${result[i]}.ignore`);
-    //  fs.writeFileSync(result[i], newpkg);
-    
+    //} else {
+      // console.log('no pragma match', result[i]);
+    }
   }
 } catch (err) {
   console.error(err);
