@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+
+/* eslint-disable */
 const fs = require('fs');
 const path = require('path');
 
@@ -8,7 +10,7 @@ const path = require('path');
 
 // TODO: parse .gitignore
 // skips dotfiles is built-in to function
-const skipDirs = [ 'node_modules', 'dist', 'artifacts', 'cache', 'forge-artifacts', 'forge-cache' ];
+const skipDirs = [ 'node_modules', 'dist', 'artifacts', 'cache', 'forge-artifacts', 'forge-cache', 'forge-std' ];
 
 try {
   const result = getAllFiles(".", "package.json")
