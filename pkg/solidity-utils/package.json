@@ -28,12 +28,12 @@
     "test-fuzz": "forge test"
   },
   "dependencies": {
-    "@balancer-labs/v2-interfaces": "workspace:*"
+    "@balancer-labs/v2-interfaces": "file:./../../pkg/interfaces/"
   },
   "devDependencies": {
-    "@balancer-labs/balancer-js": "workspace:*",
-    "@balancer-labs/v2-common": "workspace:*",
-    "@balancer-labs/v2-helpers": "workspace:*",
+    "@balancer-labs/balancer-js": "file:./../../pkg/balancer-js/",
+    "@balancer-labs/v2-common": "file:./../../pvt/common/",
+    "@balancer-labs/v2-helpers": "file:./../../pvt/helpers/",
     "@nomiclabs/hardhat-ethers": "^2.2.1",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@types/chai": "^4.3.3",
