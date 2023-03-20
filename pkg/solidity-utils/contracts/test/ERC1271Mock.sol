@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 
 import "@balancer-labs/v2-interfaces/contracts/solidity-utils/openzeppelin/IERC1271.sol";
 

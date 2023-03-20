@@ -14,7 +14,7 @@
 
 // https://github.com/buttonwood-protocol/button-wrappers/blob/main/contracts/UnbuttonToken.sol
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 
 import "@balancer-labs/v2-interfaces/contracts/standalone-utils/IButtonWrapper.sol";
 

@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 
 // Functionality required is onDeposit it needs to pull ERC20s out
 // of users wallet and transfer into Euler protocol. Similar

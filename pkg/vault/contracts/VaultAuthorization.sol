@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 pragma experimental ABIEncoderV2;
 
 import "@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol";
@@ -74,7 +74,8 @@ abstract contract VaultAuthorization is
 
     constructor(IAuthorizer authorizer)
         // The Vault is a singleton, so it simply uses its own address to disambiguate action identifiers.
-        Authentication(bytes32(uint256(address(this))))
+        /// EDIT BY VILLCASO: convert address to bytes20 instead of unit256 for solidity 0.8
+        Authentication(bytes32(bytes20(address(this))))
         EIP712("Balancer V2 Vault", "1")
     {
         _setAuthorizer(authorizer);

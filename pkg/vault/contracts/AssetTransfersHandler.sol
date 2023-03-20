@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 pragma experimental ABIEncoderV2;
 
 import "@balancer-labs/v2-interfaces/contracts/solidity-utils/helpers/BalancerErrors.sol";
@@ -131,7 +131,9 @@ abstract contract AssetTransfersHandler is AssetHelpers {
 
         uint256 excess = msg.value - amountUsed;
         if (excess > 0) {
-            msg.sender.sendValue(excess);
+            /// EDIT BY VILLCASO: wrap msg.sender as payable for solidity 0.8
+            address payable recip = payable(msg.sender);
+            recip.sendValue(excess);
         }
     }
 
