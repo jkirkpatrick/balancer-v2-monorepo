@@ -1,9 +1,13 @@
 # <img src="logo.svg" alt="Balancer" height="128px">
 
-# Balancer V2 Monorepo
+# Balancer V2 Minirepo
+
+THIS IS A PARTIAL CLONE (sparse-checkout) of [Balancer V2 Monorepo](https://github.com/balancer/balancer-v2-monorepo)
 
 [![Docs](https://img.shields.io/badge/docs-%F0%9F%93%84-blue)](https://docs.balancer.fi/)
+<!--
 [![CI Status](https://github.com/balancer-labs/balancer-v2-monorepo/workflows/CI/badge.svg)](https://github.com/balancer-labs/balancer-v2-monorepo/actions)
+-->
 [![License](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 This repository contains the Balancer Protocol V2 core smart contracts, including the `Vault` and standard Pools, along with their tests, configuration, and deployment information.
@@ -12,15 +16,18 @@ For a high-level introduction to Balancer V2, see [Introducing Balancer V2: Gene
 
 ## Structure
 
-This is a Yarn 2 monorepo, with the packages meant to be published in the [`pkg`](./pkg) directory. Newly developed packages may not be published yet.
+This is a monorepo supporting npm workspaces, with the packages meant to be published in the [`pkg`](./pkg) directory. Newly developed packages may not be published yet.
 
 Active development occurs in this repository, which means some contracts in it might not be production-ready. Proceed with caution.
 
 ### Packages
 
+<!--
 - [`v2-deployments`](./pkg/deployments): addresses and ABIs of all Balancer V2 deployed contracts, for mainnet and various test networks.
 - [`v2-interfaces`](./pkg/interfaces): Solidity interfaces for all contracts.
+-->
 - [`v2-vault`](./pkg/vault): the [`Vault`](./pkg/vault/contracts/Vault.sol) contract and all core interfaces, including [`IVault`](./pkg/interfaces/contracts/vault/IVault.sol) and the Pool interfaces: [`IBasePool`](./pkg/interfaces/contracts/vault/IBasePool.sol), [`IGeneralPool`](./pkg/interfaces/contracts/vault/IGeneralPool.sol) and [`IMinimalSwapInfoPool`](./pkg/interfaces/contracts/vault/IMinimalSwapInfoPool.sol).
+<!--
 - [`v2-pool-weighted`](./pkg/pool-weighted): the [`WeightedPool`](./pkg/pool-weighted/contracts/WeightedPool.sol), and [`LiquidityBootstrappingPool`](./pkg/pool-weighted/contracts/lbp/LiquidityBootstrappingPool.sol) contracts, along with their associated factories.
 - [`v2-pool-linear`](./pkg/pool-linear): the [`LinearPool`](./pkg/pool-linear/contracts/LinearPool.sol) contracts, along with its associated factory. Derived Linear Pools can be found in the [Orb Collective repo](https://github.com/orbcollective/linear-pools).
 - [`v2-pool-utils`](./pkg/pool-utils): Solidity utilities used to develop Pool contracts.
@@ -28,9 +35,38 @@ Active development occurs in this repository, which means some contracts in it m
 - [`v2-standalone-utils`](./pkg/standalone-utils): miscellaneous standalone utility contracts.
 - [`v2-liquidity-mining`](./pkg/liquidity-mining): contracts that compose the liquidity mining (veBAL) system.
 - [`v2-governance-scripts`](./pkg/governance-scripts): contracts that execute complex governance actions.
+-->
+- [`v2-pool-stable`](./pkg/pool-stable/): contracts for the Balancer V2 Stable Pool, Composable Stable Pool, and Stable Math libraries.
+- [`v2-balancer-js`](./pkg/balancer-js/): a JavaScript SDK which provides commonly used utilities for interacting with the V2 Balancer Protocol
 
 ## Pre-requisites
 
+_NOTE: This minirepo is going to be updated to ensure compatiblity with: node v18 (LTS), npm v9, solc v0.8.19_
+
+_NOTE: remove hardhat-waffle, ethereum-waffle_
+
+_NOTE: balancer-js uses rollup for builds_
+
+```js
+// DONE!
+dependencies: {
+  // yarn-only (incorrect)
+  "@balancer-labs/foo": "workspace:*",
+
+  // general / npm-compatible (correct)
+  "@balancer-labs/foo": "file:../foo",
+},
+
+// TODO
+scripts: {
+  // yarn-only (incorrect) ... linting is inconsistent, often eslint is used
+  "lint": "yarn lint:typescript",
+
+  // general / npm-compatible (correct)
+  "lint": "npx lint:typescript" // or "npm run lint:typescript"
+}
+```
+<!--
 The build & test instructions below should work out of the box with Node ^14.18.0. (Please note that it needs Node 14 specifically, and will NOT work with Node 16 or higher. Minor version should be at least 18).
 
 Multiple Node versions can be installed in the same system, either manually or with a version manager.
@@ -39,13 +75,23 @@ One option to quickly select the suggested Node version is using `nvm`, and runn
 ```bash
 $ nvm use
 ```
+-->
 
 ## Clone
 
-This repository uses git submodules; use `--recurse-submodules` option when cloning. For example, using https:
+This repository is a fork the [original repository](https://github.com/balancer/balancer-v2-monorepo):
 
 ```bash
-$ git clone --recurse-submodules https://github.com/balancer-labs/balancer-v2-monorepo.git
+
+cd balancer/
+git submodule init
+git submodule update
+
+# pull in patches from upstream balancer-v2-monorepo into this repository:
+git pull upstream master && git push origin main
+
+# fix submodules
+git submodule update --init
 ```
 
 ## Build and Test
@@ -53,8 +99,8 @@ $ git clone --recurse-submodules https://github.com/balancer-labs/balancer-v2-mo
 Before any tests can be run, the repository needs to be prepared:
 
 ```bash
-$ yarn # install all dependencies
-$ yarn build # compile all contracts
+$ npm install # install all dependencies
+$ npm build # compile all contracts
 ```
 
 Most tests are standalone and simply require installation of dependencies and compilation. Some packages however have extra requirements. Notably, the [`v2-deployments`](./pkg/deployments) package must have access to mainnet archive nodes in order to perform fork tests. For more details, head to [its readme file](./pkg/deployments/README.md).
@@ -62,20 +108,33 @@ Most tests are standalone and simply require installation of dependencies and co
 In order to run all tests (including those with extra dependencies), run:
 
 ```bash
-$ yarn test # run all tests
+$ npm test # run all tests
 ```
 
 To instead run a single package's tests, run:
 
 ```bash
-$ cd pkg/<package> # e.g. cd pkg/v2-vault
-$ yarn test
+$ cd pkg/<package> 
+$ npm test
 ```
 
+The minirepo is adding support for [eth-gas-reporter]()  
+
+```bash
+$ npm run gas # entire repo
+$ cd pkg/<package> && npm run gas # e.g. cd pkg/v2-vault and view gas report for v2-vault
+```
+<!--
 You can see a sample report of a test run [here](./audits/test-report.md).
+-->
 
 ### Foundry (Forge) tests
 
+_NOTE: FIX testing_
+- MISSING: pvt/forge-std (submodule install location)
+- MISSING: foundry.toml (lots of symlinks in repo)
+
+<!--
 To run Forge tests, first [install Foundry](https://book.getfoundry.sh/getting-started/installation). The installation steps below apply to Linux or MacOS. Follow the link for additional options.
 
 ```bash
@@ -89,14 +148,17 @@ Then, to run tests in a single package, run:
 $ cd pkg/<package> # e.g. cd pkg/v2-vault
 $ yarn test-fuzz
 ```
+-->
 
 ## Security
-
+<!-- 
 Multiple independent reviews and audits were performed by [Certora](https://www.certora.com/), [OpenZeppelin](https://openzeppelin.com/) and [Trail of Bits](https://www.trailofbits.com/). The latest reports from these engagements are located in the [`audits`](./audits) directory.
 
 Bug bounties apply to most of the smart contracts hosted in this repository: head to [Balancer V2 Bug Bounties](https://docs.balancer.fi/reference/contracts/security.html#bug-bounty) to learn more. Alternatively, send an email to security@balancer.finance.
 
 All core smart contracts are immutable, and cannot be upgraded. See page 6 of the [Trail of Bits audit](https://github.com/balancer-labs/balancer-v2-monorepo/blob/master/audits/trail-of-bits/2021-04-02.pdf):
+-->
+All core smart contracts are immutable, and cannot be upgraded.
 
 > Upgradeability | Not Applicable. The system cannot be upgraded.
 
