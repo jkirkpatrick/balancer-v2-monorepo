@@ -18,20 +18,20 @@
     "dist/"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && yarn typechain && tsc && cp temp/*.d.ts dist/ && yarn postbuild",
+    "build": "rm -rf dist/ && npm run typechain && tsc && cp temp/*.d.ts dist/ && npm run postbuild",
     "postbuild": "rm -rf temp/",
-    "typechain": "typechain --target ethers-v5 --out-dir temp/ '../deployments/tasks/*/abi/*.json' 'abi/*.json'"
+    "typechain": "npx typechain --target ethers-v5 --out-dir temp/ '../deployments/tasks/*/abi/*.json' 'abi/*.json'"
   },
   "devDependencies": {
-    "@typechain/ethers-v5": "^7.0.1",
-    "typechain": "^5.1.2",
-    "typescript": "^4.0.2"
+    "@typechain/ethers-v5": "^7.2.0",
+    "typechain": "^5.2.0",
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "@ethersproject/abi": "^5.4.0",
     "@ethersproject/bytes": "^5.4.0",
     "@ethersproject/constants": "^5.4.0",
     "@ethersproject/providers": "^5.4.0",
-    "ethers": "^5.4.1"
+    "ethers": "^5.7.2"
   }
 }
