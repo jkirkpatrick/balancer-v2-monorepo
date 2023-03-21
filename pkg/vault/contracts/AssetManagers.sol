@@ -117,7 +117,8 @@ abstract contract AssetManagers is
 
         // Since 'cash' and 'managed' are stored as uint112, `amount` is guaranteed to also fit in 112 bits. It will
         // therefore always fit in a 256 bit integer.
-        cashDelta = int256(-amount);
+        /// EDIT BY VILLCASO: negation must be done by subtracting from max value of type for solidity 0.8
+        cashDelta = int256(type(uint256).max - amount + 1);
         managedDelta = int256(amount);
     }
 
@@ -148,7 +149,8 @@ abstract contract AssetManagers is
         // Since 'cash' and 'managed' are stored as uint112, `amount` is guaranteed to also fit in 112 bits. It will
         // therefore always fit in a 256 bit integer.
         cashDelta = int256(amount);
-        managedDelta = int256(-amount);
+        /// EDIT BY VILLCASO: negation must be done by subtracting from max value of type for solidity 0.8
+        managedDelta = int256(type(uint256).max - amount + 1);
     }
 
     /**
