@@ -22,14 +22,14 @@
     "@balancer-labs/v2-vault": "file:../../pkg/vault",
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@types/lodash": "^4.14.191",
-    "@types/node": "^14.18.40",
+    "@types/node": "^18.15.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "decimal.js": "^10.4.3",
     "eslint": "^8.36.0",
     "eslint-plugin-mocha-no-only": "^1.1.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "ethers": "^5.7.2",
+    "ethers": "^6.2.0",
     "hardhat": "^2.13.0",
     "lodash.frompairs": "^4.0.1",
     "lodash.pick": "^4.4.0",
@@ -38,6 +38,6 @@
     "lodash.zip": "^4.2.0",
     "prettier": "^2.8.6",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }
