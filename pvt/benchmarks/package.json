@@ -5,14 +5,14 @@
   "version": "1.1.0",
   "license": "GPL-3.0-only",
   "scripts": {
-    "measure-deployment": "hardhat run deployment.ts",
-    "measure-single-pair": "hardhat run singlePair.ts",
-    "measure-multihop": "hardhat run multihop.ts",
-    "measure-join-exit": "hardhat run joinExit.ts",
-    "measure-relayer": "hardhat run relayer.ts",
-    "benchmark": "yarn measure-deployment && yarn measure-single-pair && yarn measure-multihop && yarn measure-join-exit && yarn measure-relayer",
-    "lint": "yarn lint:typescript",
-    "lint:typescript": "NODE_NO_WARNINGS=1 eslint . --ext .ts --ignore-path ../../.eslintignore  --max-warnings 0"
+    "measure-deployment": "npx hardhat run deployment.ts",
+    "measure-single-pair": "npx hardhat run singlePair.ts",
+    "measure-multihop": "npx hardhat run multihop.ts",
+    "measure-join-exit": "npx hardhat run joinExit.ts",
+    "measure-relayer": "npx hardhat run relayer.ts",
+    "benchmark": "npm run measure-deployment && npm run measure-single-pair && npm run measure-multihop && npm run measure-join-exit && npm run measure-relayer",
+    "lint": "npm run lint:typescript",
+    "lint:typescript": "NODE_NO_WARNINGS=1 npx eslint . --ext .ts --ignore-path ../../.eslintignore  --max-warnings 0"
   },
   "devDependencies": {
     "@balancer-labs/v2-common": "file:../common",
