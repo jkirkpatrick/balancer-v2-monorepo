@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.7.0;
+pragma solidity 0.8.19;
 pragma experimental ABIEncoderV2;
 
 import "@balancer-labs/v2-interfaces/contracts/vault/IBasicAuthorizer.sol";
@@ -26,7 +26,10 @@ contract TimelockAuthorizerMigrator {
     bytes32
         public constant GENERAL_PERMISSION_SPECIFIER = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
     // solhint-disable-previous-line max-line-length
-    address public constant EVERYWHERE = address(-1);
+    /// EDIT BY VILLCASO: non-zero must be explicity defined as address instead of converted from int for solidity 0.8
+    // solhint-disable-next-line const-name-snakecase
+    address private constant _EVERYWHERE =  address(type(uint160).max - type(uint160).max - 1);  // = address(-1);
+
     uint256 public constant CHANGE_ROOT_DELAY = 4 weeks;
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
 
