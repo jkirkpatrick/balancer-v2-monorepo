@@ -37,7 +37,8 @@ abstract contract PoolTokens is ReentrancyGuard, PoolRegistry, AssetManagers {
         // Validates token addresses and assigns Asset Managers
         for (uint256 i = 0; i < tokens.length; ++i) {
             IERC20 token = tokens[i];
-            _require(token != IERC20(0), Errors.INVALID_TOKEN);
+            /// EDIT BY VILLCASO: zero must be explicity defined as address instead of converted from int for solidity 0.8
+            _require(token != IERC20(address(0)), Errors.INVALID_TOKEN);
 
             _poolAssetManagers[poolId][token] = assetManagers[i];
         }
