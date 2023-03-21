@@ -37,8 +37,9 @@ import "./TimelockExecutionHelper.sol";
 abstract contract TimelockAuthorizerManagement is ITimelockAuthorizer, ReentrancyGuard {
     using Address for address;
 
+    /// EDIT BY VILLCASO: non-zero must be explicity defined as address instead of converted from int for solidity 0.8
     // solhint-disable-next-line const-name-snakecase
-    address private constant _EVERYWHERE = address(-1);
+    address private constant _EVERYWHERE =  address(type(uint160).max - type(uint160).max - 1);  // = address(-1);
 
     // solhint-disable-next-line const-name-snakecase
     uint256 internal constant _GLOBAL_CANCELER_SCHEDULED_EXECUTION_ID = type(uint256).max;
