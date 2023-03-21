@@ -1,5 +1,7 @@
 import './skipFoundryTests.ts';
 
+const SOLVER = '0.8.19';
+
 type ContractSettings = Record<
   string,
   {
@@ -10,23 +12,23 @@ type ContractSettings = Record<
 
 const contractSettings: ContractSettings = {
   '@balancer-labs/v2-vault/contracts/Vault.sol': {
-    version: '0.7.1',
+    version: SOLVER,
     runs: 500,
   },
   '@balancer-labs/v2-pool-weighted/contracts/LiquidityBootstrappingPoolFactory.sol': {
-    version: '0.7.1',
+    version: SOLVER,
     runs: 200,
   },
   '@balancer-labs/v2-pool-weighted/contracts/managed/ManagedPoolFactory.sol': {
-    version: '0.7.1',
+    version: SOLVER,
     runs: 200,
   },
   '@balancer-labs/v2-pool-weighted/contracts/managed/ManagedPool.sol': {
-    version: '0.7.1',
+    version: SOLVER,
     runs: 200,
   },
   '@balancer-labs/v2-pool-weighted/contracts/test/MockManagedPool.sol': {
-    version: '0.7.1',
+    version: SOLVER,
     runs: 200,
   },
 };
@@ -43,7 +45,7 @@ type SolcConfig = {
 
 export const compilers: [SolcConfig] = [
   {
-    version: '0.7.1',
+    version: SOLVER,
     settings: {
       optimizer: {
         enabled: true,
