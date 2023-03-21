@@ -1,9 +1,9 @@
 import { Decimal } from 'decimal.js';
-import { BigNumber } from 'ethers';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import _BN from 'bn.js';
 
-export { BigNumber };
+// export { BigNumber };
 
 const SCALING_FACTOR = 1e18;
 

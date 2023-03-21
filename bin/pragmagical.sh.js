@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 // skips dotfiles is built-in to function
-const skipDirs = [ 'node_modules', 'dist', 'artifacts', 'cache', 'forge-artifacts', 'forge-cache', 'forge-std', 'deployments', 'governance-scripts' ];
+const skipDirs = [ 'node_modules', 'dist', 'artifacts', 'cache', 'forge-artifacts', 'forge-cache', 'forge-std' ];
 
 const OLD_PRAGMA_REGEX=/pragma solidity \^0.7.0;/g;
 const NEW_PRAGMA="pragma solidity 0.8.19;";
