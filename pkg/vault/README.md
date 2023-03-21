@@ -1,5 +1,9 @@
 # <img src="../../logo.svg" alt="Balancer" height="128px">
 
+_NOTE_: requires balancer-js to be built before running tests (depends on contents of `balancer-js/dist`)
+
+_NOTE_: requires typechain TestWETH to be built before running tests (depends on contents of `typechain/dist`)
+
 # Balancer V2 Vault
 
 [![NPM Package](https://img.shields.io/npm/v/@balancer-labs/v2-vault.svg)](https://www.npmjs.org/package/@balancer-labs/v2-vault)
