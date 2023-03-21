@@ -117,12 +117,12 @@ chai.use(function (chai, utils) {
           return catchResult;
         } catch (error) {
           // If the catch didn't throw because another reason was expected, re-throw the error
-          if (!error.message.includes('but other exception was thrown')) throw error;
+          if (!(error as any).message.includes('but other exception was thrown')) throw error;
 
           // Decode the actual revert reason and look for it in the balancer errors list
           const regExp =
             /(Expected transaction to be reverted with )(.*)(, but other exception was thrown: .*VM Exception while processing transaction: reverted with reason string (?:"|'))(.*)(?:" |')(.*)/;
-          const matches = error.message.match(regExp);
+          const matches = (error as any).message.match(regExp);
           if (!matches || matches.length !== 6) throw error;
 
           const expectedReason: string = matches[2];
@@ -147,7 +147,7 @@ chai.use(function (chai, utils) {
             expectedErrorCode = BalancerErrors.encodeError(expectedReason);
           } else {
             // If there is no balancer error matching the expected revert reason re-throw the error
-            error.message = `${error.message} (${actualReason})`;
+            (error as any).message = `${(error as any).message} (${actualReason})`;
             throw error;
           }
 
