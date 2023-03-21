@@ -19,10 +19,12 @@ import "@balancer-labs/v2-interfaces/contracts/vault/IVault.sol";
 
 contract MockAuthorizerAdaptorEntrypoint {
     function getVault() external pure returns (IVault) {
-        return IVault(0);
+        /// EDIT BY VILLCASO: zero must be explicity defined as address instead of converted from int for solidity 0.8
+        return IVault(address(0));
     }
 
     function getAuthorizerAdaptor() external pure returns (IAuthorizerAdaptor) {
-        return IAuthorizerAdaptor(0);
+        /// EDIT BY VILLCASO: zero must be explicity defined as address instead of converted from int for solidity 0.8
+        return IAuthorizerAdaptor(address(0));
     }
 }
