@@ -14,13 +14,16 @@ export async function deploy(
   if (!from) from = await getSigner();
 
   const { ethers } = await import('hardhat');
+  
   const factory = await ethers.getContractFactoryFromArtifact(artifact, { libraries: libs });
   const deployment = await factory.connect(from).deploy(...args);
+  // @ts-ignore TS2322
   return deployment.deployed();
 }
 
 export async function instanceAt(artifact: Artifact, address: string): Promise<Contract> {
   const { ethers } = await import('hardhat');
+  // @ts-ignore TS2322
   return ethers.getContractAt(artifact.abi, address);
 }
 

@@ -165,12 +165,15 @@ async function getActionIdSource(
   if (contractIsAuthorizerAware) {
     if (factoryOutput) {
       await checkFactoryOutput(task, contractName, factoryOutput);
+      // @ts-ignore TS2740
       return { useAdaptor: false, actionIdSource: await task.instanceAt(contractName, factoryOutput) };
     } else {
+      // @ts-ignore TS2322
       return { useAdaptor: false, actionIdSource: await task.deployedInstance(contractName) };
     }
   } else {
     const adaptorTask = new Task('20220325-authorizer-adaptor', TaskMode.READ_ONLY, task.network);
+    // @ts-ignore TS2322
     return { useAdaptor: true, actionIdSource: await adaptorTask.deployedInstance('AuthorizerAdaptor') };
   }
 }

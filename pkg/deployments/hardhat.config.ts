@@ -1,8 +1,9 @@
-import '@nomiclabs/hardhat-ethers';
+// import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-waffle';
 import 'hardhat-local-networks-config-plugin';
 import 'hardhat-ignore-warnings';
 
+import { HardhatUserConfig } from "hardhat/config";
 import '@balancer-labs/v2-common/setupTests';
 
 import { task } from 'hardhat/config';
@@ -21,7 +22,7 @@ import logger, { Logger } from './src/logger';
 import { checkActionIds, checkActionIdUniqueness, saveActionIds } from './src/actionId';
 import { saveContractDeploymentAddresses } from './src/network';
 import { name } from './package.json';
-
+/*
 task('deploy', 'Run deployment task')
   .addParam('id', 'Deployment task ID')
   .addFlag('force', 'Ignore previous deployments')
@@ -230,8 +231,9 @@ task('build-address-lookup', `Build a lookup table from contract addresses to th
   });
 
 task(TASK_TEST).addOptionalParam('id', 'Specific task ID of the fork test to run.').setAction(test);
+**/
 
-export default {
+const config: HardhatUserConfig = {
   mocha: {
     timeout: 600000,
   },
@@ -242,5 +244,7 @@ export default {
   paths: {
     sources: './tasks',
   },
-  warnings: hardhatBaseConfig.warnings,
+  // warnings: hardhatBaseConfig.warnings,
 };
+
+export default config;

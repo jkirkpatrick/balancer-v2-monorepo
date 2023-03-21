@@ -1,4 +1,5 @@
-import chalk from 'chalk';
+import chalk, { ColorName, colorNames } from 'chalk';
+import convert from 'color-convert';
 
 const DEFAULTS = {
   verbose: false,
@@ -34,15 +35,16 @@ export class Logger {
   }
 
   error(msg: string, error?: Error): void {
-    this.log(msg, '🚨', 'red');
+    this.log(msg, '🚨', 'red' );
     if (error) console.error(error);
   }
 
-  log(msg: string, emoji: string, color = 'white'): void {
+  log(msg: string, emoji: string, color: ColorName = 'white'): void {
     if (DEFAULTS.silent) return;
-    let formattedMessage = chalk.keyword(color)(`${emoji}  ${msg}`);
+    let formattedMessage = chalk.hex(convert.keyword.hex(color as any))(`${emoji}  ${msg}`);
+    
     if (DEFAULTS.verbose) {
-      const formattedPrefix = chalk.keyword(this.color)(`[${this.actor}]`);
+      const formattedPrefix = chalk.hex(convert.keyword.hex(color as any))(`[${this.actor}]`);
       formattedMessage = `${formattedPrefix} ${formattedMessage}`;
     }
     console.error(formattedMessage);

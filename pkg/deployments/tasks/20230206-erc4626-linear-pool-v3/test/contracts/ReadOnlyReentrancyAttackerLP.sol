@@ -88,7 +88,7 @@ contract ReadOnlyReentrancyAttackerLP {
             false
         );
 
-        vault.exitPool(poolId, address(this), address(this), exitPoolRequest);
+        vault.exitPool(poolId, address(this), payable(this), exitPoolRequest);
     }
 
     receive() external payable {

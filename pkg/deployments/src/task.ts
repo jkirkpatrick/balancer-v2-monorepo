@@ -95,7 +95,7 @@ export default class Task {
 
     const instance = await this.deploy(name, args, from, force, libs);
 
-    await this.verify(name, instance.address, args, libs);
+    await this.verify(name, instance.address.toString(), args, libs);
     return instance;
   }
 
@@ -122,7 +122,7 @@ export default class Task {
       logger.success(`Deployed ${name} at ${instance.address}`);
 
       if (this.mode === TaskMode.LIVE) {
-        saveContractDeploymentTransactionHash(instance.address, instance.deployTransaction.hash, this.network);
+        saveContractDeploymentTransactionHash(instance.address.toString(), instance.hash.toString(), this.network);
       }
     } else {
       logger.info(`${name} already deployed at ${output[name]}`);
@@ -355,7 +355,7 @@ export default class Task {
   private _parseRawOutput(rawOutput: RawOutput): Output {
     return Object.keys(rawOutput).reduce((output: Output, key: string) => {
       const value = rawOutput[key];
-      output[key] = typeof value === 'string' ? value : value.address;
+      output[key] = typeof value === 'string' ? value : value.address.toString();
       return output;
     }, {});
   }

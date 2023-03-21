@@ -1,10 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node",
+    "target": "ES2017",
+    "module": "commonjs",
     "declaration": true,
-    "outDir": "dist",
-    "resolveJsonModule": true
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "rootDirs": ["./src", "./scripts", "./test"],
+    "esModuleInterop": true
   },
   "include": ["index.ts", "src", "addresses/**/*.json", "tasks/**/artifact/*.json", "tasks/**/output/*.json"],
   "exclude": ["tasks/**/test", "tasks/**/output/test.json"],
