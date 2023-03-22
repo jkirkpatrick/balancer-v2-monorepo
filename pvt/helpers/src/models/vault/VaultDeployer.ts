@@ -20,7 +20,7 @@ export default {
 
     const { from, mocked } = deployment;
     if (!admin) admin = from || (await ethers.getSigners())[0];
-
+    
     // This sequence breaks the circular dependency between authorizer, vault, adaptor and entrypoint.
     // First we deploy the vault, adaptor and entrypoint with a basic authorizer.
     const basicAuthorizer = await this._deployBasicAuthorizer(admin);
@@ -54,7 +54,8 @@ export default {
     return deploy('v2-pool-utils/MockVault', { from, args: [authorizer.address] });
   },
 
-  async _deployBasicAuthorizer(admin: SignerWithAddress): Promise<Contract> {
+  async _deployBasicAuthorizer(admin: SignerWithAddress | undefined): Promise<Contract> {
+    if (!admin) throw new Error('Basic Authorizer admin not defined');
     return deploy('v2-vault/MockBasicAuthorizer', { args: [], from: admin });
   },
 

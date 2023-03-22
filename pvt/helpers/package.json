@@ -5,13 +5,13 @@
   "version": "1.0.0",
   "license": "GPL-3.0-only",
   "scripts": {
-    "lint": "npm run lint:typescript",
+    "lint": "tsc --noemit --skipLibCheck && npm run lint:typescript",
     "lint:typescript": "NODE_NO_WARNINGS=1 npx eslint . --ext .ts --ignore-path ../../.eslintignore  --max-warnings 0"
   },
   "dependencies": {
+    "@balancer-labs/balancer-js": "file:../../pkg/balancer-js",
     "@ethersproject/bignumber": "^5.7.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
-    "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.15.5",
     "decimal.js": "^10.4.3",

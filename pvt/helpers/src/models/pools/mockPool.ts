@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { AbiCoder } from 'ethers';
 import { BigNumberish } from '../../numbers';
 
 export const encodeJoin = (joinAmounts: BigNumberish[], dueProtocolFeeAmounts: BigNumberish[]): string =>
@@ -8,5 +8,5 @@ export const encodeExit = (exitAmounts: BigNumberish[], dueProtocolFeeAmounts: B
   encodeJoinExitMockPool(exitAmounts, dueProtocolFeeAmounts);
 
 function encodeJoinExitMockPool(amounts: BigNumberish[], dueProtocolFeeAmounts: BigNumberish[]): string {
-  return ethers.utils.defaultAbiCoder.encode(['uint256[]', 'uint256[]'], [amounts, dueProtocolFeeAmounts]);
+  return AbiCoder.defaultAbiCoder().encode(['uint256[]', 'uint256[]'], [amounts, dueProtocolFeeAmounts]);
 }
