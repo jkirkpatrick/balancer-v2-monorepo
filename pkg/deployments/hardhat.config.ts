@@ -1,5 +1,5 @@
 // import '@nomiclabs/hardhat-ethers';
-import '@nomiclabs/hardhat-waffle';
+import "@nomicfoundation/hardhat-toolbox";
 import 'hardhat-local-networks-config-plugin';
 import 'hardhat-ignore-warnings';
 
@@ -22,7 +22,9 @@ import logger, { Logger } from './src/logger';
 import { checkActionIds, checkActionIdUniqueness, saveActionIds } from './src/actionId';
 import { saveContractDeploymentAddresses } from './src/network';
 import { name } from './package.json';
-/*
+
+
+
 task('deploy', 'Run deployment task')
   .addParam('id', 'Deployment task ID')
   .addFlag('force', 'Ignore previous deployments')
@@ -37,7 +39,7 @@ task('deploy', 'Run deployment task')
       await new Task(args.id, TaskMode.LIVE, hre.network.name, verifier).run(args);
     }
   );
-
+/*
 task('verify-contract', `Verify a task's deployment on a block explorer`)
   .addParam('id', 'Deployment task ID')
   .addParam('name', 'Contract name')
@@ -193,6 +195,7 @@ task('save-action-ids', `Print the action IDs for a particular contract and chec
     }
   );
 
+
 task('check-action-ids', `Check that contract action-ids correspond the expected values`)
   .addOptionalParam('id', 'Specific task ID')
   .setAction(async (args: { id?: string; verbose?: boolean }, hre: HardhatRuntimeEnvironment) => {
@@ -229,9 +232,9 @@ task('build-address-lookup', `Build a lookup table from contract addresses to th
       }
     }
   });
-
-task(TASK_TEST).addOptionalParam('id', 'Specific task ID of the fork test to run.').setAction(test);
 **/
+task(TASK_TEST).addOptionalParam('id', 'Specific task ID of the fork test to run.').setAction(test);
+
 
 const config: HardhatUserConfig = {
   mocha: {

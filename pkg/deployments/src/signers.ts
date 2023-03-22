@@ -5,6 +5,7 @@ import { impersonateAccount, setBalance as setAccountBalance } from '@nomicfound
 import { fp } from '@balancer-labs/v2-helpers/src/numbers';
 
 export async function getSigners(): Promise<SignerWithAddress[]> {
+  // @ts-ignore TS2339
   const { ethers } = await import('hardhat');
   return ethers.getSigners();
 }
@@ -16,7 +17,7 @@ export async function getSigner(index = 0): Promise<SignerWithAddress> {
 export async function impersonate(address: string, balance = fp(100)): Promise<SignerWithAddress> {
   await impersonateAccount(address);
   await setBalance(address, balance);
-
+  // @ts-ignore TS2339
   const { ethers } = await import('hardhat');
   const signer = ethers.provider.getSigner(address);
   return SignerWithAddress.create(signer);

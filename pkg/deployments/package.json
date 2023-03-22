@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "npm run compile",
-    "compile": "tsc && npx hardhat compile && rm -rf artifacts/build-info",
+    "compile": "tsc --skipLibCheck && NODE_OPTIONS='--loader ts-node/esm' npx hardhat compile && rm -rf artifacts/build-info",
     "check": "npm run check-artifacts && npm run check-deployments",
     "check-artifacts": "npx hardhat check-artifacts",
     "check-deployments": "npx hardhat check-deployments --network mainnet && npx hardhat check-deployments --network polygon && npx hardhat check-deployments --network arbitrum && npx hardhat check-deployments --network optimism && npx hardhat check-deployments --network goerli && npx hardhat check-deployments --network gnosis && npx hardhat check-deployments --network bsc && npx hardhat check-deployments --network avalanche",
@@ -38,10 +38,12 @@
   },
   "devDependencies": {
     "@balancer-labs/balancer-js": "file:../balancer-js",
+    "@balancer-labs/v2-common": "file:../../pvt/common",
     "@balancer-labs/v2-helpers": "file:../../pvt/helpers",
     "@balancer-labs/v2-interfaces": "file:../interfaces",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
-    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@solidity-parser/parser": "^0.16.0",
     "@types/color-convert": "^2.0.0",
     "@types/lodash": "^4.14.191",
@@ -67,6 +69,14 @@
   },
   "peerDependencies": {
     "@ethersproject/contracts": "^5.0.0",
-    "hardhat": "^2.8.3"
+    "hardhat": "^2.13.0"
+  },
+  "overrides": {
+    "@nomiclabs/hardhat-ethers": {
+      "ethers": "$ethers"
+    },
+    "@nomicfoundation/hardhat-toolbox": {
+      "ethers": "$ethers"
+    }
   }
 }

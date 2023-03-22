@@ -166,6 +166,7 @@ export default class Task {
     // The only problem with the approach described above is that it is not easy to find the transaction in which a
     // contract is deployed. Tenderly has a dedicated endpoint for this however.
 
+    // @ts-ignore TS2339
     const { ethers } = await import('hardhat');
 
     const deployedAddress = this.output()[name];

@@ -12,9 +12,9 @@ export async function deploy(
 ): Promise<Contract> {
   if (!args) args = [];
   if (!from) from = await getSigner();
-
+  // @ts-ignore TS2339
   const { ethers } = await import('hardhat');
-  
+
   const factory = await ethers.getContractFactoryFromArtifact(artifact, { libraries: libs });
   const deployment = await factory.connect(from).deploy(...args);
   // @ts-ignore TS2322
@@ -22,12 +22,14 @@ export async function deploy(
 }
 
 export async function instanceAt(artifact: Artifact, address: string): Promise<Contract> {
+  // @ts-ignore TS2339
   const { ethers } = await import('hardhat');
   // @ts-ignore TS2322
   return ethers.getContractAt(artifact.abi, address);
 }
 
 export async function deploymentTxData(artifact: Artifact, args: Array<Param> = [], libs?: Libraries): Promise<string> {
+  // @ts-ignore TS2339
   const { ethers } = await import('hardhat');
   const factory = await ethers.getContractFactoryFromArtifact(artifact, { libraries: libs });
 
