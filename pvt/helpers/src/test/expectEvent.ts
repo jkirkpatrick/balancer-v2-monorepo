@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { BigNumber, ContractReceipt } from 'ethers';
+import { BigNumber } from '@ethersproject/bignumber';
+import { ContractReceipt } from '@ethersproject/contracts';
 import { Interface, LogDescription } from 'ethers/lib/utils';
 
 // Ported from @openzeppelin/test-helpers to use with Ethers. The Test Helpers don't
@@ -26,6 +27,7 @@ export function inReceipt(receipt: ContractReceipt, eventName: string, eventArgs
 
         contains(e.args, k, v);
       } catch (error) {
+        // @ts-ignore TS2345
         exceptions.push(error);
         return false;
       }
@@ -70,6 +72,7 @@ export function inIndirectReceipt(
 
         contains(e.args, k, v);
       } catch (error) {
+        // @ts-ignore TS2345
         exceptions.push(error);
         return false;
       }

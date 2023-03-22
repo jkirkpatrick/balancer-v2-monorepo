@@ -1,5 +1,7 @@
-import { BigNumber, ContractReceipt } from 'ethers';
-import { ethers } from 'hardhat';
+import { BigNumber } from '@ethersproject/bignumber';
+import { ContractReceipt } from '@ethersproject/contracts';
+import { ethers } from 'ethers';
+import hre from 'hardhat';
 
 import { BigNumberish, bn } from './numbers';
 
@@ -32,10 +34,11 @@ export const setNextBlockTimestamp = async (timestamp: BigNumberish): Promise<vo
 
 export const lastBlockNumber = async (): Promise<number> => await time.latestBlock();
 
-export const receiptTimestamp = async (receipt: ContractReceipt | Promise<ContractReceipt>): Promise<number> => {
+export const receiptTimestamp = async (receipt: ContractReceipt | Promise<ContractReceipt>): Promise<number|null> => {
   const blockHash = (await receipt).blockHash;
-  const block = await ethers.provider.getBlock(blockHash);
-  return block.timestamp;
+  const provider = await ethers.getDefaultProvider(hre.network);
+  const block = await provider.getBlock(blockHash);
+  return block ? block.timestamp : null;
 };
 
 export const SECOND = 1;
